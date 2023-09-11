@@ -18,3 +18,4 @@ public class Receipts {
         this.receipts.add(receipt);
     }
 }
+
