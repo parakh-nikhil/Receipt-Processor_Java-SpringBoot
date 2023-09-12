@@ -26,14 +26,13 @@ public class PointsUtil {
 
     public static int calculatePointsByTotalAmount(Double total){
         int points = 0;
-        String[] dollarCent = total.toString().split("\\.");
-        if(Integer.parseInt(dollarCent[1]) == 0){
+        Double cents = total%1;
+        if(cents == 0.0){
             points += 50;
         }
-        if(Integer.parseInt(dollarCent[1]) %25 == 0){
+        if(cents %0.25 == 0){
             points += 25;
         }
-
         return points;
     }
 
