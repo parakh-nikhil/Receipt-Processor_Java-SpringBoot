@@ -1,4 +1,4 @@
-package com.fetch.ReceiptProcessor;
+package com.Fetch.ReceiptProcessor;
 
 public class Item {
     private String shortDescription;

@@ -1,4 +1,4 @@
-package com.fetch.ReceiptProcessor;
+package com.Fetch.ReceiptProcessor;
 
 import java.util.ArrayList;
 import java.util.List;
