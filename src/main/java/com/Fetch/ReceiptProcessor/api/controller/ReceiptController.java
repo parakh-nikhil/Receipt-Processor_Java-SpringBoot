@@ -69,6 +69,7 @@ public class ReceiptController {
         Map<String,Integer> response = new HashMap<>();
         if(receipt.isPresent()){
             Receipt r = (Receipt) receipt.get();
+            r.calculatePoints();
             response.put("points", r.getPoints());
             return new ResponseEntity<>(response, HttpStatus.OK);
         }

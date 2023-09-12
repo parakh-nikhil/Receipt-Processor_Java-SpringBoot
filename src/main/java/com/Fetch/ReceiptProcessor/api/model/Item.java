@@ -4,12 +4,6 @@ public class Item {
     private String shortDescription;
     private Double price;
 
-    // A better way is to implement builder design pattern to avoid constructor explosion
-    public Item(String shortDescription, Double price) {
-        this.shortDescription = shortDescription;
-        this.price = price;
-    }
-
     public String getShortDescription() {
         return shortDescription;
     }
