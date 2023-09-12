@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Receipt {
-    private int id;
+    private String id;
     private int points;
     private String retailer;
     private String purchaseDate;
@@ -78,12 +78,10 @@ public class Receipt {
         return total;
     }
 
-    public void setTotal(String total) {
-        this.total = Double.valueOf(total);
-    }
+    public void setTotal(String total) { this.total = Double.valueOf(total); }
 
-    public int getId(){ return this.id; }
-    public void setId(int id){ this.id = id;}
+    public String getId(){ return this.id; }
+    public void setId(String id){ this.id = id;}
 
     public void calculatePoints(){
         int totalPoints = 0;

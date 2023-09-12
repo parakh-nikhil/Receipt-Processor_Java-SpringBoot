@@ -3,35 +3,32 @@ package com.Fetch.ReceiptProcessor.service;
 import com.Fetch.ReceiptProcessor.api.model.Receipt;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ReceiptService {
-    private List<Receipt> receiptList;
+    private Map<String, Receipt> receiptIdMap;
 
     public ReceiptService() {
-        this.receiptList = new ArrayList<>();
+        this.receiptIdMap = new HashMap<>();
     }
 
     public List<Receipt> getReceipts(){
-        return this.receiptList;
+        List<Receipt> receiptList = new ArrayList<>();
+        receiptList.addAll(this.receiptIdMap.values());
+        return receiptList;
     }
 
-    public Optional<Receipt> getReceiptById(Integer id) {
+    public Optional<Receipt> getReceiptById(String id) {
         Optional optional = Optional.empty();
-        for(Receipt r : this.receiptList){
-            if(r.getId() == id){
-                optional = Optional.of(r);
-                return optional;
-            }
+        if(this.receiptIdMap.containsKey(id)){
+            optional = Optional.of(this.receiptIdMap.get(id));
         }
         return optional;
     }
 
     public void addReceipt(Receipt receipt){
-        this.receiptList.add(receipt);
+        this.receiptIdMap.put(receipt.getId(), receipt);
     }
 
 }
