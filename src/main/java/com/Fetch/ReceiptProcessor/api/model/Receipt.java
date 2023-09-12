@@ -1,28 +1,31 @@
-package com.Fetch.ReceiptProcessor;
+package com.Fetch.ReceiptProcessor.api.model;
+
+import com.Fetch.ReceiptProcessor.api.model.Item;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Receipt {
+    private int id;
     private int points;
     private String retailer;
-    private Date purchaseDate; //TODO change this to Date datatype
-    private Date purchaseTime; //TODO change this to Time datatype
+    private String purchaseDate;
+    private String purchaseTime;
     private List<Item> items;
-    private int total;
+    private Double total;
 
     public Receipt(){
         this.points = 0;
         this.retailer = "";
-        this.purchaseDate = new Date();
-        this.purchaseTime = new Date();
+        this.purchaseDate = "";
+        this.purchaseTime = "";
         this.items = new ArrayList<>();
-        this.total = 0;
+        this.total = 0.00;
     }
 
     // A better way is to implement builder design pattern to avoid constructor explosion
-    public Receipt(String retailer, Date purchaseDate, Date purchaseTime, List<Item> items, int total) {
+    public Receipt(String retailer, String purchaseDate, String purchaseTime, List<Item> items, Double total) {
         this.retailer = retailer;
         this.purchaseDate = purchaseDate;
         this.purchaseTime = purchaseTime;
@@ -43,19 +46,19 @@ public class Receipt {
         this.retailer = retailer;
     }
 
-    public Date getPurchaseDate() {
+    public String getPurchaseDate() {
         return purchaseDate;
     }
 
-    public void setPurchaseDate(Date purchaseDate) {
+    public void setPurchaseDate(String purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
 
-    public Date getPurchaseTime() {
+    public String getPurchaseTime() {
         return purchaseTime;
     }
 
-    public void setPurchaseTime(Date purchaseTime) {
+    public void setPurchaseTime(String purchaseTime) {
         this.purchaseTime = purchaseTime;
     }
 
@@ -71,13 +74,16 @@ public class Receipt {
         this.items.add(item);
     }
 
-    public int getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
+    public void setTotal(String total) {
+        this.total = Double.valueOf(total);
     }
+
+    public int getId(){ return this.id; }
+    public void setId(int id){ this.id = id;}
 
     public void calculatePoints(){
         int totalPoints = 0;

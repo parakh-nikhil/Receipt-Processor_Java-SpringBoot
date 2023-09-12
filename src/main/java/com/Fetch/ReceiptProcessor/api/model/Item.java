@@ -1,11 +1,11 @@
-package com.Fetch.ReceiptProcessor;
+package com.Fetch.ReceiptProcessor.api.model;
 
 public class Item {
     private String shortDescription;
-    private int price;
+    private Double price;
 
     // A better way is to implement builder design pattern to avoid constructor explosion
-    public Item(String shortDescription, int price) {
+    public Item(String shortDescription, Double price) {
         this.shortDescription = shortDescription;
         this.price = price;
     }
@@ -18,11 +18,11 @@ public class Item {
         this.shortDescription = shortDescription;
     }
 
-    public int getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setPrice(String price) {
+        this.price = Double.valueOf(price);
     }
 }
