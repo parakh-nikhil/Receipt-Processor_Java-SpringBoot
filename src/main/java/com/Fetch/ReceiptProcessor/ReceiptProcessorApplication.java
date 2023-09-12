@@ -1,4 +1,4 @@
-package com.fetch.ReceiptProcessor;
+package com.Fetch.ReceiptProcessor;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
