@@ -2,10 +2,12 @@ package com.Fetch.ReceiptProcessor.util;
 
 import com.Fetch.ReceiptProcessor.api.model.Item;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 public class PointsUtil {
-    public static int calculatePoints(String retailerName, Double totalAmt, List<Item> itemsList, String date, String time){
+    public static int calculatePoints(String retailerName, Double totalAmt, List<Item> itemsList, LocalDate date, LocalTime time){
         return calculatePointsByNameAlphaNumeric(retailerName) +
                 calculatePointsByTotalAmount(totalAmt) +
                 calculatePointsByItemsList(itemsList) +
@@ -47,19 +49,28 @@ public class PointsUtil {
         return points;
     }
 
-    public static int calculatePointsByPurchaseDate(String purchaseDate){
+    public static int calculatePointsByPurchaseDate(LocalDate purchaseDate){
         int points = 0;
-        String[] date = purchaseDate.split("-");
-        if(Integer.parseInt(date[2]) % 2 != 0){
+        if(purchaseDate.getDayOfMonth() % 2 != 0){
             points += 6;
         }
+//        String[] date = purchaseDate.split("-");
+//        if(Integer.parseInt(date[2]) % 2 != 0){
+//            points += 6;
+//        }
         return points;
     }
 
-    public static int calculatePointsByPurchaseTime(String purchaseTime){
+    public static int calculatePointsByPurchaseTime(LocalTime purchaseTime){
         int points = 0;
-        String[] time = purchaseTime.split(":");
-        if(Integer.parseInt(time[0]) >= 14 && Integer.parseInt(time[0]) < 16){
+        LocalTime startTime = LocalTime.of(14, 0); // 14:00
+        LocalTime endTime = LocalTime.of(16, 0);   // 16:00
+//        String[] time = purchaseTime.split(":");
+//        if(Integer.parseInt(time[0]) >= 14 && Integer.parseInt(time[0]) < 16){
+//            points += 10;
+//        }
+
+        if (purchaseTime.isAfter(startTime) && purchaseTime.isBefore(endTime)){
             points += 10;
         }
         return points;
