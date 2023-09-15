@@ -2,10 +2,12 @@ package com.Fetch.ReceiptProcessor.api.model;
 
 import com.Fetch.ReceiptProcessor.api.model.Item;
 import com.Fetch.ReceiptProcessor.util.PointsUtil;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Receipt {
@@ -33,16 +35,17 @@ public class Receipt {
         return purchaseDate;
     }
 
-    public void setPurchaseDate(String purchaseDate) {
-        this.purchaseDate = purchaseDate;
+    public void setPurchaseDate(String purchaseDateStr) {
+
+        this.purchaseDate = purchaseDateStr;
     }
 
     public String getPurchaseTime() {
         return purchaseTime;
     }
 
-    public void setPurchaseTime(String purchaseTime) {
-        this.purchaseTime = purchaseTime;
+    public void setPurchaseTime(String purchaseTimeStr) {
+        this.purchaseTime = purchaseTimeStr;
     }
 
     public List<Item> getItems() {
