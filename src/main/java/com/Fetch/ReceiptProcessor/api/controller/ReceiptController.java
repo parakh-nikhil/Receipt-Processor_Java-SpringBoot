@@ -1,14 +1,14 @@
 package com.Fetch.ReceiptProcessor.api.controller;
 
+import com.Fetch.ReceiptProcessor.api.exception.ApiError;
+import com.Fetch.ReceiptProcessor.api.exception.CustomReceiptVerificationHandler;
 import com.Fetch.ReceiptProcessor.api.model.Receipt;
 import com.Fetch.ReceiptProcessor.service.ReceiptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.*;
 
 @RestController
@@ -29,13 +29,23 @@ public class ReceiptController {
             produces = "application/json"
     )
     @ResponseBody
-    public ResponseEntity<Map<String, String>> processReceipt(@RequestBody Receipt receipt){
-        String uuid = String.valueOf(UUID.randomUUID());
-        Map<String, String> response = new HashMap<>();
-        receipt.setId(uuid);
-        receiptService.addReceipt(receipt);
-        response.put("id", uuid);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    public ResponseEntity<Map<String, Object>> processReceipt(@RequestBody Receipt receipt){
+        CustomReceiptVerificationHandler receiptExceptionHandler = new CustomReceiptVerificationHandler();
+        ApiError verificationResponse = receiptExceptionHandler.verifyReceipt(receipt);
+        Map<String, Object> response = new HashMap<>();
+
+        if(verificationResponse.getStatus() == HttpStatus.OK){
+            String uuid = String.valueOf(UUID.randomUUID());
+            receipt.setId(uuid);
+            receiptService.addReceipt(receipt);
+            response.put("id", uuid);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }else{
+            response.put("errors" , verificationResponse.getErrors());
+            response.put("message", verificationResponse.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @GetMapping(
@@ -74,7 +84,6 @@ public class ReceiptController {
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-
     }
 
 }

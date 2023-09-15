@@ -4,10 +4,11 @@ import com.Fetch.ReceiptProcessor.api.model.Item;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class PointsUtil {
-    public static int calculatePoints(String retailerName, Double totalAmt, List<Item> itemsList, LocalDate date, LocalTime time){
+    public static int calculatePoints(String retailerName, Double totalAmt, List<Item> itemsList, String date, String time){
         return calculatePointsByNameAlphaNumeric(retailerName) +
                 calculatePointsByTotalAmount(totalAmt) +
                 calculatePointsByItemsList(itemsList) +
@@ -49,19 +50,19 @@ public class PointsUtil {
         return points;
     }
 
-    public static int calculatePointsByPurchaseDate(LocalDate purchaseDate){
+    public static int calculatePointsByPurchaseDate(String purchaseDateStr){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate purchaseDate = LocalDate.parse(purchaseDateStr, formatter);
         int points = 0;
         if(purchaseDate.getDayOfMonth() % 2 != 0){
             points += 6;
         }
-//        String[] date = purchaseDate.split("-");
-//        if(Integer.parseInt(date[2]) % 2 != 0){
-//            points += 6;
-//        }
         return points;
     }
 
-    public static int calculatePointsByPurchaseTime(LocalTime purchaseTime){
+    public static int calculatePointsByPurchaseTime(String purchaseTimeStr){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime purchaseTime = LocalTime.parse(purchaseTimeStr, formatter);
         int points = 0;
         LocalTime startTime = LocalTime.of(14, 0); // 14:00
         LocalTime endTime = LocalTime.of(16, 0);   // 16:00

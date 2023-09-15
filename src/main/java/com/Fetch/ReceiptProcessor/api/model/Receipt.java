@@ -2,6 +2,7 @@ package com.Fetch.ReceiptProcessor.api.model;
 
 import com.Fetch.ReceiptProcessor.api.model.Item;
 import com.Fetch.ReceiptProcessor.util.PointsUtil;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -12,10 +13,9 @@ import java.util.List;
 public class Receipt {
     private String id;
     private int points;
-//    @Not
     private String retailer;
-    private LocalDate purchaseDate;
-    private LocalTime purchaseTime;
+    private String purchaseDate;
+    private String purchaseTime;
     private List<Item> items;
     private Double total;
 
@@ -31,24 +31,21 @@ public class Receipt {
         this.retailer = retailer;
     }
 
-    public LocalDate getPurchaseDate() {
+    public String getPurchaseDate() {
         return purchaseDate;
     }
 
     public void setPurchaseDate(String purchaseDateStr) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate purchaseDate = LocalDate.parse(purchaseDateStr, formatter);
-        this.purchaseDate = purchaseDate;
+
+        this.purchaseDate = purchaseDateStr;
     }
 
-    public LocalTime getPurchaseTime() {
+    public String getPurchaseTime() {
         return purchaseTime;
     }
 
     public void setPurchaseTime(String purchaseTimeStr) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        LocalTime purchaseTime = LocalTime.parse(purchaseTimeStr, formatter);
-        this.purchaseTime = purchaseTime;
+        this.purchaseTime = purchaseTimeStr;
     }
 
     public List<Item> getItems() {
